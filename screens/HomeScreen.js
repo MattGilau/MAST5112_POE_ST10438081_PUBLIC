@@ -22,19 +22,64 @@ const HomeScreen = ({ navigation }) => {
 
   const menuItems = {
     starters: [
-      { label: 'Baked Chicken Wings', price: 60, image: require('PART2/screens/_images/bakedCW.jpg') },
-      { label: 'Bruschetta', price: 45, image: require('PART2/screens/_images/bruschetta.jpg') },
-      { label: 'Vegetable Spring Rolls', price: 50, image: require('PART2/screens/_images/vegeSR.jpg') },
+      { 
+        label: 'Baked Chicken Wings', 
+        price: 60, 
+        description: 'Crispy chicken wings tossed in a savory sauce.', 
+        image: require('PART2/screens/_images/bakedCW.jpg') 
+      },
+      { 
+        label: 'Bruschetta', 
+        price: 45,  
+        description: 'Toasted bread topped with fresh tomatoes and basil.', 
+        image: require('PART2/screens/_images/bruschetta.jpg') 
+      },
+      { 
+        label: 'Vegetable Spring Rolls',  
+        price: 50,  
+        description: 'Crispy rolls filled with a medley of fresh vegetables.', 
+        image: require('PART2/screens/_images/vegeSR.jpg') 
+      },
     ],
     mains: [
-      { label: 'Burger', price: 120, image: require('PART2/screens/_images/burger.jpg') },
-      { label: 'Pizza', price: 140, image: require('PART2/screens/_images/pizza.jpg') },
-      { label: 'Steak', price: 180, image: require('PART2/screens/_images/steak.jpg') },
+      { 
+        label: 'Burger', 
+        price: 120, 
+        description: 'Juicy beef patty served with fresh lettuce and tomato.', 
+        image: require('PART2/screens/_images/burger.jpg') 
+      },
+      { 
+        label: 'Pizza', 
+        price: 140, 
+        description: 'Classic pizza topped with mozzarella and your choice of toppings.', 
+        image: require('PART2/screens/_images/pizza.jpg') 
+      },
+      { 
+        label: 'Steak', 
+        price: 180, 
+        description: 'Grilled to perfection, served with a side of vegetables.', 
+        image: require('PART2/screens/_images/steak.jpg') 
+      },
     ],
     desserts: [
-      { label: 'Fruit Salad', price: 50, image: require('PART2/screens/_images/fruit.jpg') },
-      { label: 'Waffles', price: 60, image: require('PART2/screens/_images/waffles.jpg') },
-      { label: 'Chocolate Moose', price: 70, image: require('PART2/screens/_images/moose.jpg') },
+      { 
+        label: 'Fruit Salad', 
+        price: 50, 
+        description: 'A refreshing mix of seasonal fruits.', 
+        image: require('PART2/screens/_images/fruit.jpg') 
+      },
+      { 
+        label: 'Waffles', 
+        price: 60, 
+        description: 'Golden waffles served with syrup and whipped cream.', 
+        image: require('PART2/screens/_images/waffles.jpg') 
+      },
+      { 
+        label: 'Chocolate Moose', 
+        price: 70, 
+        description: 'Rich and creamy chocolate mousse topped with chocolate shavings.', 
+        image: require('PART2/screens/_images/moose.jpg') 
+      },
     ],
   };
 
@@ -67,7 +112,11 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.courseSection}>
         <View style={styles.leftHalf}>
           <Image source={images.starters} style={styles.courseImage} />
-          <Button title="View Starters" color="red" onPress={() => navigation.navigate('Filter')} />
+          <Button 
+            title="View Starters" 
+            color="red" 
+            onPress={() => navigation.navigate('Filter', { course: 'starters', items: menuItems.starters })} 
+          />
         </View>
         <View style={styles.rightHalf}>
           <Text style={styles.courseTitle}>
@@ -92,7 +141,11 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.courseSection}>
         <View style={styles.leftHalf}>
           <Image source={images.mains} style={styles.courseImage} />
-          <Button title="View Mains" color="red" onPress={() => navigation.navigate('Filter')} />
+          <Button 
+            title="View Mains" 
+            color="red" 
+            onPress={() => navigation.navigate('Filter', { course: 'mains', items: menuItems.mains })} 
+          />
         </View>
         <View style={styles.rightHalf}>
           <Text style={styles.courseTitle}>
@@ -117,7 +170,11 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.courseSection}>
         <View style={styles.leftHalf}>
           <Image source={images.desserts} style={styles.courseImage} />
-          <Button title="View Desserts" color="red" onPress={() => navigation.navigate('Filter')} />
+          <Button 
+            title="View Desserts" 
+            color="red" 
+            onPress={() => navigation.navigate('Filter', { course: 'desserts', items: menuItems.desserts })} 
+          />
         </View>
         <View style={styles.rightHalf}>
           <Text style={styles.courseTitle}>
@@ -164,12 +221,14 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+
   container: { flex: 1, padding: 20, backgroundColor: '#fff' },
   header: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
   logo: { width: 100, height: 100, marginRight: 15 },
   title: { fontSize: 25, fontWeight: 'bold', color: '#002366' },
   welcomeMessage: { fontSize: 16, textAlign: 'center', marginBottom: 10 },
   courseSection: { flexDirection: 'row', marginBottom: 10, backgroundColor: '#f0f0f0', borderRadius: 10, padding: 10 },
+
   leftHalf: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f0f0', padding: 10, borderRadius: 10  },
   rightHalf: { flex: 1, justifyContent: 'center', backgroundColor: '#002366', padding: 10, borderRadius: 10 },
   courseImage: { width: 125, height: 125 },
@@ -180,6 +239,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,          
     marginBottom: 10,
   },
+
   priceBlock: { backgroundColor: 'green', borderRadius: 10, padding: 5, marginTop: 10 },
   priceText: { fontSize: 16, color: '#fff', textAlign: 'center' },
   buttonContainer: { marginTop: 10, borderRadius: 10 },
@@ -188,10 +248,3 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
-
-
-
-
-
-
-
