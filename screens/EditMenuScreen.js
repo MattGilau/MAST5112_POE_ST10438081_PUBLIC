@@ -1,130 +1,144 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, Button, StyleSheet, TextInput, Alert } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { View, Text, TextInput, Button, FlatList, StyleSheet, Alert } from 'react-native';
 
-const EditMenuScreen = ({ navigation }) => {
-  // Initial menu state, with courses for Starters, Mains, and Desserts
-  const [menuItems, setMenuItems] = useState({
-    Starters: [],
-    Mains: [],
-    Desserts: [],
-  });
+const EditMenu = ({ navigation }) => {
+  // State variables for each course array
+  const [starters, setStarters] = useState([]);
+  const [mains, setMains] = useState([]);
+  const [desserts, setDesserts] = useState([]);
 
-  // State to handle inputs for new item
-  const [selectedCourse, setSelectedCourse] = useState('Starters'); // Default to Starters
-  const [newItemTitle, setNewItemTitle] = useState('');
-  const [newItemPrice, setNewItemPrice] = useState('');
-  const [newItemDescription, setNewItemDescription] = useState('');
+  // State variables for user inputs
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
+  const [course, setCourse] = useState('');
 
-  // Add new menu item
-  const addMenuItem = () => {
-    if (newItemTitle.trim() && newItemPrice.trim() && newItemDescription.trim()) {
-      const newItem = {
-        id: (menuItems[selectedCourse].length + 1).toString(),
-        title: newItemTitle,
-        price: newItemPrice,
-        description: newItemDescription,
-      };
-
-      // Update the selected course's menu
-      setMenuItems({
-        ...menuItems,
-        [selectedCourse]: [...menuItems[selectedCourse], newItem],
-      });
-
-      // Reset input fields
-      setNewItemTitle('');
-      setNewItemPrice('');
-      setNewItemDescription('');
-    } else {
-      Alert.alert('Error', 'Please fill in all fields (name, price, description).');
+  // Function to add an item to the appropriate course array
+  const addItem = () => {
+    // Input validation: Check if all fields are filled
+    if (!name || !price || !description || !course) {
+      Alert.alert('Error', 'All fields are required.');
+      return;
     }
+
+    // Input validation: Check if price is a valid number
+    if (isNaN(price) || parseFloat(price) <= 0) {
+      Alert.alert('Error', 'Please enter a valid price.');
+      return;
+    }
+
+    // Normalize the course input (make it case-insensitive)
+    const normalizedCourse = course.toLowerCase();
+
+    // Input validation: Check if the course is valid
+    if (!['starters', 'mains', 'desserts'].includes(normalizedCourse)) {
+      Alert.alert('Error', 'Course must be "starters", "mains", or "desserts".');
+      return;
+    }
+
+    // Create a new item object
+    const item = { name, price: parseFloat(price), description };
+
+    // Add the item to the correct course array
+    if (normalizedCourse === 'starters') setStarters([...starters, item]);
+    if (normalizedCourse === 'mains') setMains([...mains, item]);
+    if (normalizedCourse === 'desserts') setDesserts([...desserts, item]);
+
+    // Clear input fields after adding
+    setName('');
+    setPrice('');
+    setDescription('');
+    setCourse('');
   };
 
-  // Remove menu item
-  const removeMenuItem = (id) => {
-    setMenuItems({
-      ...menuItems,
-      [selectedCourse]: menuItems[selectedCourse].filter(item => item.id !== id),
-    });
+  // Function to remove an item from a course array
+  const removeItem = (index, course) => {
+    if (course === 'starters') setStarters(starters.filter((_, i) => i !== index));
+    if (course === 'mains') setMains(mains.filter((_, i) => i !== index));
+    if (course === 'desserts') setDesserts(desserts.filter((_, i) => i !== index));
   };
+
+  // Function to save changes and navigate to the HomeTwo screen
+  const saveChanges = () => {
+    navigation.navigate('HomeTwo', { starters, mains, desserts });
+  };
+
+  // Function to render items of a specific course
+  const renderCourseItems = (courseArray, courseName) => (
+    <>
+      <Text style={styles.courseTitle}>{courseName}</Text>
+      <FlatList
+        data={courseArray}
+        renderItem={({ item, index }) => (
+          <View style={styles.item}>
+            <Text>{`${item.name} - R${item.price.toFixed(2)}`}</Text>
+            <Text>{item.description}</Text>
+            <Button
+              title="Remove"
+              color="red"
+              onPress={() => removeItem(index, courseName.toLowerCase())}
+            />
+          </View>
+        )}
+        keyExtractor={(_, index) => index.toString()}
+      />
+    </>
+  );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Edit Menu</Text>
-
-      {/* Picker to select course */}
-      <Text style={styles.label}>Select Course</Text>
-      <Picker
-        selectedValue={selectedCourse}
-        style={styles.picker}
-        onValueChange={(itemValue) => setSelectedCourse(itemValue)}
-      >
-        <Picker.Item label="Starters" value="Starters" />
-        <Picker.Item label="Mains" value="Mains" />
-        <Picker.Item label="Desserts" value="Desserts" />
-      </Picker>
-
-      {/* Input fields for adding new items */}
+      {/* Input fields for adding a new item */}
       <TextInput
         style={styles.input}
-        placeholder="Enter dish name"
-        value={newItemTitle}
-        onChangeText={setNewItemTitle}
+        placeholder="Name"
+        value={name}
+        onChangeText={setName}
       />
       <TextInput
         style={styles.input}
-        placeholder="Enter dish price (R)"
+        placeholder="Price (in Rands)"
+        value={price}
+        onChangeText={setPrice}
         keyboardType="numeric"
-        value={newItemPrice}
-        onChangeText={setNewItemPrice}
       />
       <TextInput
         style={styles.input}
-        placeholder="Enter dish description"
-        value={newItemDescription}
-        onChangeText={setNewItemDescription}
+        placeholder="Description"
+        value={description}
+        onChangeText={setDescription}
       />
-      <Button title="Add Dish" color="green" onPress={addMenuItem} />
+      <TextInput
+        style={styles.input}
+        placeholder="Course (starters, mains, desserts)"
+        value={course}
+        onChangeText={setCourse}
+      />
+      <Button title="Add Item" color="green" onPress={addItem} />
 
-      {/* List of menu items for the selected course */}
-      <FlatList
-        data={menuItems[selectedCourse]}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
-            <View style={styles.itemTextContainer}>
-              <Text style={styles.itemTitle}>{item.title}</Text>
-              <Text style={styles.itemPrice}>Price: R{item.price}</Text>
-              <Text style={styles.itemDescription}>{item.description}</Text>
-            </View>
-            <Button title="Remove" color="red" onPress={() => removeMenuItem(item.id)} />
-          </View>
-        )}
-      />
+      {/* Render items for each course */}
+      {renderCourseItems(starters, 'Starters')}
+      {renderCourseItems(mains, 'Mains')}
+      {renderCourseItems(desserts, 'Desserts')}
 
       {/* Save changes button */}
-      <View style={styles.buttonContainer}>
-        <Button title="Save Changes" color="orange" onPress={() => navigation.goBack()} />
-      </View>
+      <Button title="Save Changes" color="green" onPress={saveChanges} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#e9ecef' },
-  title: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 20, color: '#002366' },
-  label: { fontSize: 18, marginBottom: 10, fontWeight: 'bold' },
-  picker: { height: 50, width: '100%', marginBottom: 20 },
-  input: { height: 40, borderColor: '#ccc', borderWidth: 1, marginBottom: 10, paddingHorizontal: 10 },
-  itemContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 15, borderBottomWidth: 1, borderColor: '#ccc' },
-  itemTextContainer: { flex: 1 },
-  itemTitle: { fontSize: 16, fontWeight: 'bold' },
-  itemPrice: { fontSize: 14, color: '#666' },
-  itemDescription: { fontSize: 14, color: '#666' },
-  buttonContainer: { marginTop: 20 },
+  container: { flex: 1, padding: 10 },
+  input: { borderWidth: 1, marginBottom: 10, padding: 8 },
+  item: { marginBottom: 10 },
+  courseTitle: {
+    fontWeight: 'bold',
+    fontSize: 20, 
+    marginTop: 20,
+    color: '#002366', 
+  },
 });
 
-export default EditMenuScreen;
+export default EditMenu;
+
 
 

@@ -12,7 +12,7 @@ const LoginScreen = ({ navigation }) => {
       // Navigate to Edit Menu Screen after successful login
       navigation.navigate('EditMenu');
     } else {
-      // Show alert message for incorrect credentials
+      // Show alert message for incorrect login details
       Alert.alert(
         'Username or password incorrect',
         '',
@@ -45,7 +45,7 @@ const LoginScreen = ({ navigation }) => {
         placeholderTextColor="#A9A9A9"
       />
 
-      {/* Error message if any */}
+      {/* Error message */}
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
       {/* Login Button */}
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
-    color: '#002366', // Royal blue color for the title
+    color: '#002366', 
   },
   subtitle: {
     fontSize: 18,
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 10,
     borderRadius: 10,
-    borderColor: '#D3D3D3', // Light gray border
-    backgroundColor: '#F0F0F0', // Light gray background for inputs
+    borderColor: '#D3D3D3', 
+    backgroundColor: '#F0F0F0', 
     fontSize: 16,
     color: '#333',
   },
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   loginButton: {
-    backgroundColor: '#FF4500', // Red button
+    backgroundColor: 'green', 
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   backButton: {
-    backgroundColor: '#FF4500', // Red button for Back
+    backgroundColor: 'red', 
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',

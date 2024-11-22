@@ -114,7 +114,7 @@ const HomeScreen = ({ navigation }) => {
           <Image source={images.starters} style={styles.courseImage} />
           <Button 
             title="View Starters" 
-            color="red" 
+            color="green" 
             onPress={() => navigation.navigate('Filter', { course: 'starters', items: menuItems.starters })} 
           />
         </View>
@@ -143,7 +143,7 @@ const HomeScreen = ({ navigation }) => {
           <Image source={images.mains} style={styles.courseImage} />
           <Button 
             title="View Mains" 
-            color="red" 
+            color="green" 
             onPress={() => navigation.navigate('Filter', { course: 'mains', items: menuItems.mains })} 
           />
         </View>
@@ -172,7 +172,7 @@ const HomeScreen = ({ navigation }) => {
           <Image source={images.desserts} style={styles.courseImage} />
           <Button 
             title="View Desserts" 
-            color="red" 
+            color="green" 
             onPress={() => navigation.navigate('Filter', { course: 'desserts', items: menuItems.desserts })} 
           />
         </View>
@@ -202,7 +202,7 @@ const HomeScreen = ({ navigation }) => {
 
       {/* Clear Button */}
       <View style={styles.buttonContainer}>
-        <Button title="Clear Selections" color="orange" onPress={clearSelections} />
+        <Button title="Clear Selections" color="red" onPress={clearSelections} />
       </View>
 
       {/* Display Total */}
@@ -214,7 +214,7 @@ const HomeScreen = ({ navigation }) => {
 
       {/* Go to Login Button */}
       <View style={styles.buttonContainer}>
-        <Button title="Go to Login" color="red" onPress={() => navigation.navigate('Login')} />
+        <Button title="Go to Login" color="green" onPress={() => navigation.navigate('Login')} />
       </View>
     </View>
   );
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  priceBlock: { backgroundColor: 'green', borderRadius: 10, padding: 5, marginTop: 10 },
+  priceBlock: { backgroundColor: '#02949c', borderRadius: 10, padding: 5, marginTop: 10 },
   priceText: { fontSize: 16, color: '#fff', textAlign: 'center' },
   buttonContainer: { marginTop: 10, borderRadius: 10 },
   totalPriceContainer: { marginTop: 10, padding: 10, backgroundColor: '#e0e0e0', borderRadius: 10 },
