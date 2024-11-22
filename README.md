@@ -9,6 +9,7 @@ ________________________________________________________________________________
 -- User Interface Updates --
 
 In order to ensure that the UI is more user-friendly, I changed the color of certain aspects to ensure better uniformity and to guarantee the user does not get confused by to many different colors and information on screen. I did this by changing:
+
 Initial Home Screen: 
 
 - The total price containers were changed to a lighter blue to complement, yet keep clarity, the darker blue used in the menu item containers.
