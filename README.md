@@ -8,14 +8,19 @@ The feedback I received from Part 2 was mostly positive, however, I was warned a
 ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 -- User Interface Updates --
 
-In order to ensure that the UI is more user-friendly, I changed the color of certain aspects to ensure better uniformity and to guarantee the user does not get ###confused by to many different colors and information on screen. I did this by changing:
+In order to ensure that the UI is more user-friendly, I changed the color of certain aspects to ensure better uniformity and to guarantee the user does not get confused by to many different colors and information on screen. I did this by changing:
 Initial Home Screen: 
+
 - The total price containers were changed to a lighter blue to complement, yet keep clarity, the darker blue used in the menu item containers.
 - The view menu, calculate total, and login buttons were changed to green which, although they have different functions, ensures the user can more easily identify them as buttons that perform progressive actions such as calculating something or going to a new screen.
-- The "clear selections" button was changed to red to indicate it performs a regressive action that clears all the selections made. 
+- The "clear selections" button was changed to red to indicate it performs a regressive action that clears all the selections made.
+- 
 Login Screen:
-- The Login button was changed to green while the back button was made red to ensure uniformity across all screens. 
+
+- The Login button was changed to green while the back button was made red to ensure uniformity across all screens.
+  
 Buttons and headings:
+
 - The button colors and headings were kept uniform across all screens.
 
 ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
