@@ -57,7 +57,7 @@ export default function App() {
         <Stack.Screen
           name="HomeTwo"
           component={homeTwo}
-          options={{ title: 'Home' }}
+          options={{ title: 'New Home' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -78,7 +78,6 @@ const HomeScreen = ({ navigation }) => {
       {/* Starters Section */}
       <View style={styles.courseSection}>
         <View style={styles.leftHalf}>
-          {/* Displaying the image of the selected starter */}
           <Image source={images.starters} style={styles.courseImage} />
           <Button 
             title="View Starters" 
@@ -87,7 +86,6 @@ const HomeScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.rightHalf}>
-          {/* Displaying the list of starters */}
           <Text style={styles.courseTitle}>
             Starters ({menuItems.starters.length} options)
           </Text>
@@ -106,7 +104,64 @@ const HomeScreen = ({ navigation }) => {
         </View>
       </View>
 
-      {/* Similar sections for Mains and Desserts */}
+      {/* Mains Section */}
+      <View style={styles.courseSection}>
+        <View style={styles.leftHalf}>
+          <Image source={images.mains} style={styles.courseImage} />
+          <Button 
+            title="View Mains" 
+            color="green" 
+            onPress={() => navigation.navigate('Filter', { course: 'mains', items: menuItems.mains })} 
+          />
+        </View>
+        <View style={styles.rightHalf}>
+          <Text style={styles.courseTitle}>
+            Mains ({menuItems.mains.length} options)
+          </Text>
+          <Picker
+            selectedValue={selectedItems.mains}
+            style={styles.picker}
+            onValueChange={(itemValue, itemIndex) => handleItemSelect('mains', menuItems.mains[itemIndex])}
+          >
+            {menuItems.mains.map((item, index) => (
+              <Picker.Item key={index} label={item.label} value={item.label} />
+            ))}
+          </Picker>
+          <View style={styles.priceBlock}>
+            <Text style={styles.priceText}>R{prices.mains}</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Desserts Section */}
+      <View style={styles.courseSection}>
+        <View style={styles.leftHalf}>
+          <Image source={images.desserts} style={styles.courseImage} />
+          <Button 
+            title="View Desserts" 
+            color="green" 
+            onPress={() => navigation.navigate('Filter', { course: 'desserts', items: menuItems.desserts })} 
+          />
+        </View>
+        <View style={styles.rightHalf}>
+          <Text style={styles.courseTitle}>
+            Desserts ({menuItems.desserts.length} options)
+          </Text>
+          <Picker
+            selectedValue={selectedItems.desserts}
+            style={styles.picker}
+            onValueChange={(itemValue, itemIndex) => handleItemSelect('desserts', menuItems.desserts[itemIndex])}
+          >
+            {menuItems.desserts.map((item, index) => (
+              <Picker.Item key={index} label={item.label} value={item.label} />
+            ))}
+          </Picker>
+          <View style={styles.priceBlock}>
+            <Text style={styles.priceText}>R{prices.desserts}</Text>
+          </View>
+        </View>
+      </View>
+
       {/* Calculate Total Button */}
       <View style={styles.buttonContainer}>
         <Button title="Calculate Total" color="green" onPress={calculateTotal} />
