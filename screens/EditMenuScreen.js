@@ -126,6 +126,7 @@ const EditMenu = ({ navigation }) => {
   );
 };
 
+// Styles
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 10 },
   input: { borderWidth: 1, marginBottom: 10, padding: 8 },
